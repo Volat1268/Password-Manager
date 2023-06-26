@@ -1,11 +1,33 @@
 from tkinter import *
 from tkinter import ttk
-window = Tk()
-window.title('My GUI')
+root = Tk()
+root.title('My GUI')
 
-mainFrame = ttk.Frame(window, width=800, height=200, borderwidth=5, relief='raised').grid()
-s = ttk.Style()
-s.configure('Danger.TFrame', background='red', borderwidth=5, relief='raised')
-dangerFrame = ttk.Frame(window, width=200, height=200, style='Danger.TFrame').grid()
+def calculate(*args):
+    try:
+        value = float(feet.get())
+        meters.set(int(0.3048 * value * 10000.0 + 0.5)/10000.0)
+    except ValueError:
+        pass
 
-window.mainloop()
+mainframe = ttk.Frame(root, padding="3 3 12 12")
+mainframe.grid(column=0, row=0)
+# root.columnconfigure(0, weight=1)
+# root.rowconfigure(0, weight=1)
+feet = StringVar()
+feet_entry = ttk.Entry(mainframe, width=7, textvariable=feet)
+feet_entry.grid(column=2, row=1, sticky=(W, E))
+meters = StringVar()
+ttk.Label(mainframe, textvariable=meters).grid(column=2, row=2, sticky=(W, E))
+
+ttk.Button(mainframe, text="Calculate", command=calculate).grid(column=3, row=3, sticky=W)
+
+ttk.Label(mainframe, text="feet").grid(column=3, row=1, sticky=W)
+ttk.Label(mainframe, text="is equivalent to").grid(column=1, row=2, sticky=E)
+ttk.Label(mainframe, text="meters").grid(column=3, row=2, sticky=W)
+
+
+
+
+
+root.mainloop()
